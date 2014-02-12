@@ -7,7 +7,7 @@
 #       Javier Fernández-Sanguino , 2007
 # - Updates:
 #    Steve Langasek, 2008
-#    Javier Fernández-Sanguino, 2009
+#    Javier Fernández-Sanguino, 2009, 2012
 #
 #  Traductores, si no conoce el formato PO, merece la pena leer la 
 #  documentación de gettext, especialmente las secciones dedicadas a este
@@ -35,18 +35,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam 0.79-4\n"
 "Report-Msgid-Bugs-To: pam@packages.debian.org\n"
-"POT-Creation-Date: 2009-08-18 18:30-0700\n"
-"PO-Revision-Date: 2010-08-08 01:40+0200\n"
+"POT-Creation-Date: 2011-10-30 15:05-0400\n"
+"PO-Revision-Date: 2012-01-02 01:41+0100\n"
 "Last-Translator: Javier Fernandez-Sanguino <jfs@debian.org>\n"
 "Language-Team: Debian Spanish <debian-l10n-spanish@lists.debian.org>\n"
-"Language: \n"
+"Language: Spanish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POFile-SpellExtra: kdm gnome xscreensaver xdm xlockmore wdm start init\n"
 "X-POFile-SpellExtra: screensaver PAM libpam corríjala account vd runtime\n"
 "X-POFile-SpellExtra: Authentication auth Pluggable session insertables\n"
-"X-POFile-SpellExtra: password pam common\n"
+"X-POFile-SpellExtra: password pam common libc sobreescribir sobreescriban\n"
+"X-POFile-SpellExtra: reinicios libssl\n"
 
 #. Type: string
 #. Description
@@ -78,16 +79,16 @@ msgstr "Debe reiniciar manualmente los gestores de pantalla"
 #. Description
 #: ../libpam0g.templates:2001
 msgid ""
-"The kdm, wdm, and xdm display managers require a restart for the new version "
-"of libpam, but there are X login sessions active on your system that would "
-"be terminated by this restart.  You will therefore need to restart these "
+"The wdm and xdm display managers require a restart for the new version of "
+"libpam, but there are X login sessions active on your system that would be "
+"terminated by this restart.  You will therefore need to restart these "
 "services by hand before further X logins will be possible."
 msgstr ""
 "Entre los servicios que deben reiniciarse debido a la nueva versión de "
-"libpam están los gestores de pantalla kdm, wdm y xdm. Sin embargo, hay "
-"sesiones de X ejecutándose en el sistema que se terminarían si se "
-"reiniciaran estos servicios. Debe reiniciarlos manualmente si desea que "
-"funcionen los accesos a través de una sesión X más adelante."
+"libpam están los gestores de pantalla wdm y xdm. Sin embargo, hay sesiones "
+"de X ejecutándose en el sistema que se terminarían si se reiniciaran estos "
+"servicios. Debe reiniciarlos manualmente si desea que funcionen los accesos "
+"a través de una sesión X más adelante."
 
 #. Type: error
 #. Description
@@ -114,15 +115,48 @@ msgstr ""
 "Deberá arrancar manualmente estos servicios ejecutando «/etc/init.d/"
 "<servicio> start»."
 
-#. Type: multiselect
+#. Type: boolean
+#. Description
+#: ../libpam0g.templates:4001
+msgid "Restart services during package upgrades without asking?"
+msgstr ""
+"¿Reiniciar servicios durante la actualización de paquetes sin preguntar?"
+
+#. Type: boolean
+#. Description
+#: ../libpam0g.templates:4001
+msgid ""
+"There are services installed on your system which need to be restarted when "
+"certain libraries, such as libpam, libc, and libssl, are upgraded. Since "
+"these restarts may cause interruptions of service for the system, you will "
+"normally be prompted on each upgrade for the list of services you wish to "
+"restart.  You can choose this option to avoid being prompted; instead, all "
+"necessary restarts will be done for you automatically so you can avoid being "
+"asked questions on each library upgrade."
+msgstr ""
+"Su sistema tiene servicios instalados que deben reiniciarse cuando se "
+"actualicen ciertas librerías, como «libpam», «libc» o «libssl». Generalmente "
+"se le preguntará en cada actualización la lista de servicios que desea "
+"reiniciar dado que estos reinicios generalmente provocarán una interrupción "
+"del servicio. Puede seleccionar esta opción para que no se le pregunte. En "
+"lugar de hacerse estas preguntas, se reiniciarán de forma automática los "
+"servicios en cada actualización de librerías."
+
+#. Type: title
 #. Description
 #: ../libpam-runtime.templates:1001
+msgid "PAM configuration"
+msgstr "Configuración de PAM"
+
+#. Type: multiselect
+#. Description
+#: ../libpam-runtime.templates:2001
 msgid "PAM profiles to enable:"
 msgstr "Perfiles PAM a habilitar:"
 
 #. Type: multiselect
 #. Description
-#: ../libpam-runtime.templates:1001
+#: ../libpam-runtime.templates:2001
 msgid ""
 "Pluggable Authentication Modules (PAM) determine how authentication, "
 "authorization, and password changing are handled on the system, as well as "
@@ -137,7 +171,7 @@ msgstr ""
 
 #. Type: multiselect
 #. Description
-#: ../libpam-runtime.templates:1001
+#: ../libpam-runtime.templates:2001
 msgid ""
 "Some PAM module packages provide profiles that can be used to automatically "
 "adjust the behavior of all PAM-using applications on the system.  Please "
@@ -150,7 +184,7 @@ msgstr ""
 
 #. Type: error
 #. Description
-#: ../libpam-runtime.templates:2001
+#: ../libpam-runtime.templates:3001
 msgid "Incompatible PAM profiles selected."
 msgstr "Se han seleccionado perfiles PAM incompatibles."
 
@@ -158,7 +192,7 @@ msgstr "Se han seleccionado perfiles PAM incompatibles."
 #. Description
 #. This paragraph is followed by a (currently) non-translatable list of
 #. PAM profile names.
-#: ../libpam-runtime.templates:2001
+#: ../libpam-runtime.templates:3001
 msgid "The following PAM profiles cannot be used together:"
 msgstr ""
 "No pueden utilizarse conjuntamente los perfiles de PAM indicados a "
@@ -166,20 +200,20 @@ msgstr ""
 
 #. Type: error
 #. Description
-#: ../libpam-runtime.templates:2001
+#: ../libpam-runtime.templates:3001
 msgid "Please select a different set of modules to enable."
 msgstr "Seleccione un conjunto distinto de módulos a activar."
 
 #. Type: boolean
 #. Description
-#: ../libpam-runtime.templates:3001
+#: ../libpam-runtime.templates:4001
 msgid "Override local changes to /etc/pam.d/common-*?"
 msgstr ""
 "¿Desea sobreescribir los cambios locales realizados a «/etc/pam.d/common-*»?"
 
 #. Type: boolean
 #. Description
-#: ../libpam-runtime.templates:3001
+#: ../libpam-runtime.templates:4001
 msgid ""
 "One or more of the files /etc/pam.d/common-{auth,account,password,session} "
 "have been locally modified.  Please indicate whether these local changes "
@@ -195,13 +229,13 @@ msgstr ""
 
 #. Type: error
 #. Description
-#: ../libpam-runtime.templates:4001
+#: ../libpam-runtime.templates:5001
 msgid "No PAM profiles have been selected."
 msgstr "No ha seleccionado ningún perfil PAM."
 
 #. Type: error
 #. Description
-#: ../libpam-runtime.templates:4001
+#: ../libpam-runtime.templates:5001
 msgid ""
 "No PAM profiles have been selected for use on this system.  This would grant "
 "all users access without authenticating, and is not allowed.  Please select "
@@ -210,50 +244,6 @@ msgstr ""
 "No ha seleccionado ningún perfil de PAM para este sistema. Esto podría "
 "permitir que cualquier usuario accediera sin autenticación, lo que no está "
 "permitido. Debe seleccionar al menos un perfil de PAM de la lista."
-
-#. Type: error
-#. Description
-#: ../libpam-runtime.templates:5001
-msgid "Your system allowed access without a password!"
-msgstr "¡Su sistema permitía el acceso sin contraseña!"
-
-#. Type: error
-#. Description
-#: ../libpam-runtime.templates:5001
-msgid ""
-"A bug in a previous version of libpam-runtime resulted in no PAM profiles "
-"being selected for use on this system.  As a result, access was allowed for "
-"a time to all accounts on your system, with or without a correct password. "
-"Especially if this system can be accessed from the Internet, it is likely "
-"that it has been compromised.  Unless you are familiar with recovering from "
-"security failures, viruses, and malicious software, you should re-install "
-"this system from scratch or obtain the services of a skilled system "
-"administrator.  For more information, see:"
-msgstr ""
-"Una errata en la versión anterior de «libpam-runtime» dió lugar a que no se "
-"seleccionara ningún perfil de PAM para su sistema. Como consecuencia de "
-"esto, durante un tiempo el acceso a su sistema estaba permitido para las "
-"cuentas de su sistema, sin ser necesario que se introdujera la contraseña "
-"correcta. Específicamente, si este sistema estaba accesible desde Internet "
-"es posible que haya sido comprometido. A no ser que vd. esté familiarizado "
-"con los mecanismos para recuperarse de un fallo de seguridad, incluyendo "
-"código malicioso y virus, debería reinstalar el sistema partiendo de cero o "
-"solicitar los servicios de un administrador de sistemas experto. Para más "
-"información, consulte:"
-
-#. Type: error
-#. Description
-#: ../libpam-runtime.templates:5001
-msgid ""
-"The bug that allowed this wrong configuration is fixed in the current "
-"version of libpam-runtime, and your configuration has now been corrected. We "
-"apologize that previous versions of libpam-runtime did not detect and "
-"prevent this situation."
-msgstr ""
-"La errata que permitía esta configuración errónea ha sido arreglada en la "
-"versión más reciente de «libpam-runtime» y su configuración ha sido "
-"corregida. Le pedimos disculpas por el error que hizo que las versiones "
-"anteriores no detectaran y previnieran esta situación."
 
 #. Type: error
 #. Description

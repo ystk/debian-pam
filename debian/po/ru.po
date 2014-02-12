@@ -1,23 +1,23 @@
 # translation of ru.po to Russian
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the pam package.
 #
 # Yuri Kozlov <kozlov.y@gmail.com>, 2007.
 # Max Kosmach <max@tcen.ru>, 2009.
-# Yuri Kozlov <yuray@komyakino.ru>, 2009.
+# Yuri Kozlov <yuray@komyakino.ru>, 2009, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: pam 1.0.1-10\n"
+"Project-Id-Version: pam 1.1.3-6\n"
 "Report-Msgid-Bugs-To: pam@packages.debian.org\n"
-"POT-Creation-Date: 2009-08-18 18:30-0700\n"
-"PO-Revision-Date: 2009-08-11 21:21+0400\n"
+"POT-Creation-Date: 2011-10-30 15:05-0400\n"
+"PO-Revision-Date: 2011-12-04 09:00+0400\n"
 "Last-Translator: Yuri Kozlov <yuray@komyakino.ru>\n"
 "Language-Team: Russian <debian-l10n-russian@lists.debian.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
@@ -51,14 +51,14 @@ msgstr "Программу входа в систему нужно переза�
 #. Description
 #: ../libpam0g.templates:2001
 msgid ""
-"The kdm, wdm, and xdm display managers require a restart for the new version "
-"of libpam, but there are X login sessions active on your system that would "
-"be terminated by this restart.  You will therefore need to restart these "
+"The wdm and xdm display managers require a restart for the new version of "
+"libpam, but there are X login sessions active on your system that would be "
+"terminated by this restart.  You will therefore need to restart these "
 "services by hand before further X logins will be possible."
 msgstr ""
-"Для работы с новой версией libpam программам для входа в систему kdm, wdm и "
-"xdm требуется перезапуск, но это прервёт все запущенные X-сеансы. Поэтому "
-"вам нужно перезапустить эти службы вручную для того, чтобы можно было снова "
+"Для работы с новой версией libpam программам для входа в систему wdm и xdm "
+"требуется перезапуск, но это прервёт все запущенные X-сеансы. Поэтому вам "
+"нужно перезапустить эти службы вручную для того, чтобы можно было снова "
 "входить в систему через X."
 
 #. Type: error
@@ -83,15 +83,46 @@ msgid ""
 "start'."
 msgstr "Вам нужно запустить их вручную, выполнив '/etc/init.d/<служба> start'."
 
-#. Type: multiselect
+#. Type: boolean
+#. Description
+#: ../libpam0g.templates:4001
+msgid "Restart services during package upgrades without asking?"
+msgstr "Перезапускать службы при обновлении пакета не задавая вопрос?"
+
+#. Type: boolean
+#. Description
+#: ../libpam0g.templates:4001
+msgid ""
+"There are services installed on your system which need to be restarted when "
+"certain libraries, such as libpam, libc, and libssl, are upgraded. Since "
+"these restarts may cause interruptions of service for the system, you will "
+"normally be prompted on each upgrade for the list of services you wish to "
+"restart.  You can choose this option to avoid being prompted; instead, all "
+"necessary restarts will be done for you automatically so you can avoid being "
+"asked questions on each library upgrade."
+msgstr ""
+"В системе установлены службы, которые требуют перезапуска после обновления "
+"определённых библиотек (например, libpam, libc и libssl). Так как это может "
+"вызвать перерыв в работе службы, обычно, при каждом обновлении выдаётся "
+"список служб, которые нужно перезапустить. Чтобы этот вопрос не задавался, "
+"вы можете ответить утвердительно; в этом случае все необходимые службы будут "
+"перезапущены автоматически."
+
+#. Type: title
 #. Description
 #: ../libpam-runtime.templates:1001
+msgid "PAM configuration"
+msgstr "Настройка PAM"
+
+#. Type: multiselect
+#. Description
+#: ../libpam-runtime.templates:2001
 msgid "PAM profiles to enable:"
 msgstr "Активируемые профили PAM:"
 
 #. Type: multiselect
 #. Description
-#: ../libpam-runtime.templates:1001
+#: ../libpam-runtime.templates:2001
 msgid ""
 "Pluggable Authentication Modules (PAM) determine how authentication, "
 "authorization, and password changing are handled on the system, as well as "
@@ -105,7 +136,7 @@ msgstr ""
 
 #. Type: multiselect
 #. Description
-#: ../libpam-runtime.templates:1001
+#: ../libpam-runtime.templates:2001
 msgid ""
 "Some PAM module packages provide profiles that can be used to automatically "
 "adjust the behavior of all PAM-using applications on the system.  Please "
@@ -117,7 +148,7 @@ msgstr ""
 
 #. Type: error
 #. Description
-#: ../libpam-runtime.templates:2001
+#: ../libpam-runtime.templates:3001
 msgid "Incompatible PAM profiles selected."
 msgstr "Выбраны несовместимые профили PAM."
 
@@ -125,25 +156,25 @@ msgstr "Выбраны несовместимые профили PAM."
 #. Description
 #. This paragraph is followed by a (currently) non-translatable list of
 #. PAM profile names.
-#: ../libpam-runtime.templates:2001
+#: ../libpam-runtime.templates:3001
 msgid "The following PAM profiles cannot be used together:"
 msgstr "Следующие профили PAM нельзя использовать одновременно:"
 
 #. Type: error
 #. Description
-#: ../libpam-runtime.templates:2001
+#: ../libpam-runtime.templates:3001
 msgid "Please select a different set of modules to enable."
 msgstr "Выберите другой набор активируемых модулей."
 
 #. Type: boolean
 #. Description
-#: ../libpam-runtime.templates:3001
+#: ../libpam-runtime.templates:4001
 msgid "Override local changes to /etc/pam.d/common-*?"
 msgstr "Переопределить локальные изменения в /etc/pam.d/common-*?"
 
 #. Type: boolean
 #. Description
-#: ../libpam-runtime.templates:3001
+#: ../libpam-runtime.templates:4001
 msgid ""
 "One or more of the files /etc/pam.d/common-{auth,account,password,session} "
 "have been locally modified.  Please indicate whether these local changes "
@@ -158,13 +189,13 @@ msgstr ""
 
 #. Type: error
 #. Description
-#: ../libpam-runtime.templates:4001
+#: ../libpam-runtime.templates:5001
 msgid "No PAM profiles have been selected."
 msgstr "Профили PAM не выбраны."
 
 #. Type: error
 #. Description
-#: ../libpam-runtime.templates:4001
+#: ../libpam-runtime.templates:5001
 msgid ""
 "No PAM profiles have been selected for use on this system.  This would grant "
 "all users access without authenticating, and is not allowed.  Please select "
@@ -173,49 +204,6 @@ msgstr ""
 "В системе для работы не выбрано ни одного профиля PAM. Это предоставит "
 "полный доступ всем пользователям без аутентификации, что нежелательно. "
 "Выберите, по крайней мере, один профиль PAM из доступных."
-
-#. Type: error
-#. Description
-#: ../libpam-runtime.templates:5001
-msgid "Your system allowed access without a password!"
-msgstr "К вашей системе возможен доступ без пароля!"
-
-#. Type: error
-#. Description
-#: ../libpam-runtime.templates:5001
-msgid ""
-"A bug in a previous version of libpam-runtime resulted in no PAM profiles "
-"being selected for use on this system.  As a result, access was allowed for "
-"a time to all accounts on your system, with or without a correct password. "
-"Especially if this system can be accessed from the Internet, it is likely "
-"that it has been compromised.  Unless you are familiar with recovering from "
-"security failures, viruses, and malicious software, you should re-install "
-"this system from scratch or obtain the services of a skilled system "
-"administrator.  For more information, see:"
-msgstr ""
-"Ошибка в предыдущей версии libpam-runtime привела к тому, что в данной "
-"системе не выбрано ни одного профиля PAM. В результате, в системе был "
-"разрешён доступ ко всем учётным записям с паролем и без. Особенно плохо, "
-"если данная система была доступна из интернета, в этом случае, она, скорее "
-"всего, была взломана. Если вы не знакомы с процедурами восстановления "
-"работоспособности после обнаружения проблем с безопасностью, вирусами и "
-"вредноносным ПО, то переустановите данную операционную систему с нуля или "
-"обратитесь за помощью к квалифицированному системному администратору. "
-"Подробности:"
-
-#. Type: error
-#. Description
-#: ../libpam-runtime.templates:5001
-msgid ""
-"The bug that allowed this wrong configuration is fixed in the current "
-"version of libpam-runtime, and your configuration has now been corrected. We "
-"apologize that previous versions of libpam-runtime did not detect and "
-"prevent this situation."
-msgstr ""
-"Ошибка, в результате которой была возможна неверная настройка, исправлена в "
-"текущей версии libpam-runtime, и текущая настройка теперь исправлена. Мы "
-"извиняемся, что предыдущая версия libpam-runtime не обнаруживала и не "
-"предотвращала такую ситуацию."
 
 #. Type: error
 #. Description

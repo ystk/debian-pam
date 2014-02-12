@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pam 0.99.7.1-4\n"
 "Report-Msgid-Bugs-To: pam@packages.debian.org\n"
-"POT-Creation-Date: 2009-08-18 18:30-0700\n"
+"POT-Creation-Date: 2011-10-30 15:05-0400\n"
 "PO-Revision-Date: 2010-10-18 22:46+0300\n"
 "Last-Translator: Esko Arajärvi <edu@iki.fi>\n"
 "Language-Team: Finnish <debian-l10n-finnish@lists.debian.org>\n"
@@ -45,10 +45,16 @@ msgstr "Näytönhallintaohjelma tulee käynnistää uudelleen käsin"
 #. Type: error
 #. Description
 #: ../libpam0g.templates:2001
+#, fuzzy
+#| msgid ""
+#| "The kdm, wdm, and xdm display managers require a restart for the new "
+#| "version of libpam, but there are X login sessions active on your system "
+#| "that would be terminated by this restart.  You will therefore need to "
+#| "restart these services by hand before further X logins will be possible."
 msgid ""
-"The kdm, wdm, and xdm display managers require a restart for the new version "
-"of libpam, but there are X login sessions active on your system that would "
-"be terminated by this restart.  You will therefore need to restart these "
+"The wdm and xdm display managers require a restart for the new version of "
+"libpam, but there are X login sessions active on your system that would be "
+"terminated by this restart.  You will therefore need to restart these "
 "services by hand before further X logins will be possible."
 msgstr ""
 "Näytönhallintaohjelma kdm, wdm tai xdm tulee käynnistää uudelleen, jotta "
@@ -82,15 +88,40 @@ msgstr ""
 "Nämä palvelut tulee käynnistää uudelleen ajamalla ”/etc/init.d/<palvelu> "
 "start”."
 
-#. Type: multiselect
+#. Type: boolean
+#. Description
+#: ../libpam0g.templates:4001
+msgid "Restart services during package upgrades without asking?"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../libpam0g.templates:4001
+msgid ""
+"There are services installed on your system which need to be restarted when "
+"certain libraries, such as libpam, libc, and libssl, are upgraded. Since "
+"these restarts may cause interruptions of service for the system, you will "
+"normally be prompted on each upgrade for the list of services you wish to "
+"restart.  You can choose this option to avoid being prompted; instead, all "
+"necessary restarts will be done for you automatically so you can avoid being "
+"asked questions on each library upgrade."
+msgstr ""
+
+#. Type: title
 #. Description
 #: ../libpam-runtime.templates:1001
+msgid "PAM configuration"
+msgstr ""
+
+#. Type: multiselect
+#. Description
+#: ../libpam-runtime.templates:2001
 msgid "PAM profiles to enable:"
 msgstr "Käyttöön otettavat PAM-profiilit:"
 
 #. Type: multiselect
 #. Description
-#: ../libpam-runtime.templates:1001
+#: ../libpam-runtime.templates:2001
 msgid ""
 "Pluggable Authentication Modules (PAM) determine how authentication, "
 "authorization, and password changing are handled on the system, as well as "
@@ -104,7 +135,7 @@ msgstr ""
 
 #. Type: multiselect
 #. Description
-#: ../libpam-runtime.templates:1001
+#: ../libpam-runtime.templates:2001
 msgid ""
 "Some PAM module packages provide profiles that can be used to automatically "
 "adjust the behavior of all PAM-using applications on the system.  Please "
@@ -116,7 +147,7 @@ msgstr ""
 
 #. Type: error
 #. Description
-#: ../libpam-runtime.templates:2001
+#: ../libpam-runtime.templates:3001
 msgid "Incompatible PAM profiles selected."
 msgstr "Epäyhteensopivia PAM-profiileita valittu"
 
@@ -124,19 +155,19 @@ msgstr "Epäyhteensopivia PAM-profiileita valittu"
 #. Description
 #. This paragraph is followed by a (currently) non-translatable list of
 #. PAM profile names.
-#: ../libpam-runtime.templates:2001
+#: ../libpam-runtime.templates:3001
 msgid "The following PAM profiles cannot be used together:"
 msgstr "Seuraavia PAM-profiileita ei voida käyttää yhdessä:"
 
 #. Type: error
 #. Description
-#: ../libpam-runtime.templates:2001
+#: ../libpam-runtime.templates:3001
 msgid "Please select a different set of modules to enable."
 msgstr "Valitse uusi käyttöön otettavien moduulien joukko."
 
 #. Type: boolean
 #. Description
-#: ../libpam-runtime.templates:3001
+#: ../libpam-runtime.templates:4001
 msgid "Override local changes to /etc/pam.d/common-*?"
 msgstr ""
 "Kirjoitetaanko paikallisten muutosten päälle tiedostoissa /etc/pam.d/common-"
@@ -144,7 +175,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../libpam-runtime.templates:3001
+#: ../libpam-runtime.templates:4001
 msgid ""
 "One or more of the files /etc/pam.d/common-{auth,account,password,session} "
 "have been locally modified.  Please indicate whether these local changes "
@@ -159,13 +190,13 @@ msgstr ""
 
 #. Type: error
 #. Description
-#: ../libpam-runtime.templates:4001
+#: ../libpam-runtime.templates:5001
 msgid "No PAM profiles have been selected."
 msgstr "Yhtään PAM-profiilia ei ole valittu."
 
 #. Type: error
 #. Description
-#: ../libpam-runtime.templates:4001
+#: ../libpam-runtime.templates:5001
 msgid ""
 "No PAM profiles have been selected for use on this system.  This would grant "
 "all users access without authenticating, and is not allowed.  Please select "
@@ -174,47 +205,6 @@ msgstr ""
 "Yhtään PAM-profiilia ei ole valittu käytettäväksi tässä järjestelmässä. Tämä "
 "sallisi kaikille käyttäjille pääsyn ilman tunnistautumista, eikä siksi ole "
 "sallittua. Valitse ainakin yksi PAM-profiili annetulta listalta."
-
-#. Type: error
-#. Description
-#: ../libpam-runtime.templates:5001
-msgid "Your system allowed access without a password!"
-msgstr "Järjestelmä salli pääsyn ilman salasanaa!"
-
-#. Type: error
-#. Description
-#: ../libpam-runtime.templates:5001
-msgid ""
-"A bug in a previous version of libpam-runtime resulted in no PAM profiles "
-"being selected for use on this system.  As a result, access was allowed for "
-"a time to all accounts on your system, with or without a correct password. "
-"Especially if this system can be accessed from the Internet, it is likely "
-"that it has been compromised.  Unless you are familiar with recovering from "
-"security failures, viruses, and malicious software, you should re-install "
-"this system from scratch or obtain the services of a skilled system "
-"administrator.  For more information, see:"
-msgstr ""
-"Ohjelman libpam-runtime aiemmassa versiossa ollut ohjelmavirhe aiheutti sen, "
-"että mitään PAM-profiilia ei valittu käytettäväksi tässä järjestelmässä. "
-"Tämän tuloksena kaikkia järjestelmän tunnuksia voitiin jonkin aikaa käyttää "
-"ilman oikeaa salasanaa tai sen kanssa. Erityisesti, jos järjestelmään pääsee "
-"käsiksi Internetistä, on todennäköistä, että siihen on murtauduttu. Jos et "
-"ole tottunut korjaamaan tietoturvaongelmien jälkiä ja poistamaan viruksia ja "
-"haittaohjelmia, järjestelmä tulisi asentaa uudelleen alusta tai käyttää "
-"osaavan järjestelmäylläpitäjän palveluita. Lisätietoja:"
-
-#. Type: error
-#. Description
-#: ../libpam-runtime.templates:5001
-msgid ""
-"The bug that allowed this wrong configuration is fixed in the current "
-"version of libpam-runtime, and your configuration has now been corrected. We "
-"apologize that previous versions of libpam-runtime did not detect and "
-"prevent this situation."
-msgstr ""
-"Väärän asetuksen aiheuttanut ohjelmavirhe on korjattu libpam-runtimen "
-"nykyisessä versiossa ja asetuksesi on nyt korjattu. Pahoittelemme ettei "
-"libpam-runtimen aiemmat versiot huomanneet ja estäneet tätä tilannetta."
 
 #. Type: error
 #. Description

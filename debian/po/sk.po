@@ -1,13 +1,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the pam package.
-# Ivan Masár <helix84@centrum.sk>, 2008, 2009, 2010.
+# Ivan Masár <helix84@centrum.sk>, 2008, 2009, 2010, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: pam\n"
 "Report-Msgid-Bugs-To: pam@packages.debian.org\n"
-"POT-Creation-Date: 2009-08-18 18:30-0700\n"
-"PO-Revision-Date: \n"
+"POT-Creation-Date: 2011-10-30 15:05-0400\n"
+"PO-Revision-Date: 2012-01-19 22:37+0100\n"
 "Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "Language: sk\n"
@@ -45,15 +45,15 @@ msgstr "Správcu obrazovky je potrebné reštartovať ručne"
 #. Description
 #: ../libpam0g.templates:2001
 msgid ""
-"The kdm, wdm, and xdm display managers require a restart for the new version "
-"of libpam, but there are X login sessions active on your system that would "
-"be terminated by this restart.  You will therefore need to restart these "
+"The wdm and xdm display managers require a restart for the new version of "
+"libpam, but there are X login sessions active on your system that would be "
+"terminated by this restart.  You will therefore need to restart these "
 "services by hand before further X logins will be possible."
 msgstr ""
-"Správcovia obrazovky kdm, wdm a xdm vyžadujú reštart kvôli novej verzii "
-"libpam, ale na vašom systéme sú aktívne prihlasovacie relácie X, ktoré by "
-"tento reštart ukončil. Preto tieto služby budete musieť reštartovať ručne "
-"predtým, než bude možné uskutočniť ďalšie prihlásenie k X."
+"Správcovia obrazovky wdm a xdm vyžadujú reštart kvôli novej verzii libpam, "
+"ale na vašom systéme sú aktívne prihlasovacie relácie X, ktoré by tento "
+"reštart ukončil. Preto tieto služby budete musieť reštartovať ručne predtým, "
+"než bude možné uskutočniť ďalšie prihlásenie k X."
 
 #. Type: error
 #. Description
@@ -78,15 +78,47 @@ msgid ""
 msgstr ""
 "Budete ich musieť reštartovať ručne spustením „/etc/init.d/<service> start”."
 
-#. Type: multiselect
+#. Type: boolean
+#. Description
+#: ../libpam0g.templates:4001
+msgid "Restart services during package upgrades without asking?"
+msgstr "Reštartovať služby počas aktualizácií balíka bez pýtania?"
+
+#. Type: boolean
+#. Description
+#: ../libpam0g.templates:4001
+msgid ""
+"There are services installed on your system which need to be restarted when "
+"certain libraries, such as libpam, libc, and libssl, are upgraded. Since "
+"these restarts may cause interruptions of service for the system, you will "
+"normally be prompted on each upgrade for the list of services you wish to "
+"restart.  You can choose this option to avoid being prompted; instead, all "
+"necessary restarts will be done for you automatically so you can avoid being "
+"asked questions on each library upgrade."
+msgstr ""
+"Na vašom systéme bežia služby, ktoré ne potrebné reštartovať pri "
+"aktualizácii určitých knižníc ako libpam, libc a libssl. Pretože tieto "
+"reštarty môžu spôsobiť prerušenia služby systému, za bežných okolností "
+"budete vyzvaní pri každej aktualizácie so zoznamom služieb, ktoré chcete "
+"reštartovať. Túto voľbu môžete vybrať, ak nechcete byť vyzývaný, ale "
+"namiesto toho chcete, aby sa všetky potrebné reštarty vykonali automaticky "
+"za vás a tak sa vyhnúť kladeniu otázok pri každej aktualizácii knižnice."
+
+#. Type: title
 #. Description
 #: ../libpam-runtime.templates:1001
+msgid "PAM configuration"
+msgstr "Konfigurácia PAM"
+
+#. Type: multiselect
+#. Description
+#: ../libpam-runtime.templates:2001
 msgid "PAM profiles to enable:"
 msgstr "Zapnúř nasledovné profily PAM:"
 
 #. Type: multiselect
 #. Description
-#: ../libpam-runtime.templates:1001
+#: ../libpam-runtime.templates:2001
 msgid ""
 "Pluggable Authentication Modules (PAM) determine how authentication, "
 "authorization, and password changing are handled on the system, as well as "
@@ -99,7 +131,7 @@ msgstr ""
 
 #. Type: multiselect
 #. Description
-#: ../libpam-runtime.templates:1001
+#: ../libpam-runtime.templates:2001
 msgid ""
 "Some PAM module packages provide profiles that can be used to automatically "
 "adjust the behavior of all PAM-using applications on the system.  Please "
@@ -111,7 +143,7 @@ msgstr ""
 
 #. Type: error
 #. Description
-#: ../libpam-runtime.templates:2001
+#: ../libpam-runtime.templates:3001
 msgid "Incompatible PAM profiles selected."
 msgstr "Boli vybrané nekompatibilné profily PAM."
 
@@ -119,25 +151,25 @@ msgstr "Boli vybrané nekompatibilné profily PAM."
 #. Description
 #. This paragraph is followed by a (currently) non-translatable list of
 #. PAM profile names.
-#: ../libpam-runtime.templates:2001
+#: ../libpam-runtime.templates:3001
 msgid "The following PAM profiles cannot be used together:"
 msgstr "Nasledovné profily PAM nemožno použiť súčasne:"
 
 #. Type: error
 #. Description
-#: ../libpam-runtime.templates:2001
+#: ../libpam-runtime.templates:3001
 msgid "Please select a different set of modules to enable."
 msgstr "Prosím, zmeňte množinu modulov, ktoré sa majú zapnúť."
 
 #. Type: boolean
 #. Description
-#: ../libpam-runtime.templates:3001
+#: ../libpam-runtime.templates:4001
 msgid "Override local changes to /etc/pam.d/common-*?"
 msgstr "Prepísať lokálne zmeny v /etc/pam.d/common-*?"
 
 #. Type: boolean
 #. Description
-#: ../libpam-runtime.templates:3001
+#: ../libpam-runtime.templates:4001
 msgid ""
 "One or more of the files /etc/pam.d/common-{auth,account,password,session} "
 "have been locally modified.  Please indicate whether these local changes "
@@ -153,13 +185,13 @@ msgstr ""
 
 #. Type: error
 #. Description
-#: ../libpam-runtime.templates:4001
+#: ../libpam-runtime.templates:5001
 msgid "No PAM profiles have been selected."
 msgstr "Neboli vybrané žiadne profily PAM."
 
 #. Type: error
 #. Description
-#: ../libpam-runtime.templates:4001
+#: ../libpam-runtime.templates:5001
 msgid ""
 "No PAM profiles have been selected for use on this system.  This would grant "
 "all users access without authenticating, and is not allowed.  Please select "
@@ -168,48 +200,6 @@ msgstr ""
 "Pre tento systém neboli vybrané žiadne profily PAM. To by udelilo všetkým "
 "používateľom prístup bez overovania a to nie je povolené. Prosím, vyberte "
 "aspoň jeden profil PAM zo zoznamu dostupných profilov."
-
-#. Type: error
-#. Description
-#: ../libpam-runtime.templates:5001
-msgid "Your system allowed access without a password!"
-msgstr "Váš systém povolil prístup bez hesla!"
-
-#. Type: error
-#. Description
-#: ../libpam-runtime.templates:5001
-msgid ""
-"A bug in a previous version of libpam-runtime resulted in no PAM profiles "
-"being selected for use on this system.  As a result, access was allowed for "
-"a time to all accounts on your system, with or without a correct password. "
-"Especially if this system can be accessed from the Internet, it is likely "
-"that it has been compromised.  Unless you are familiar with recovering from "
-"security failures, viruses, and malicious software, you should re-install "
-"this system from scratch or obtain the services of a skilled system "
-"administrator.  For more information, see:"
-msgstr ""
-"Chyba v predošlých verziách libpam-runtime spôsobila, že pre tento systém "
-"neboli vybrané žiadne profily PAM. V dôsledku toho bol na určitý čas "
-"povolený prístup ku všetkým účtom na vašom systéme, s alebo bez správneho "
-"hesla. Obzvlášť ak je tento systém prístupný z internetu, je pravdepodobné, "
-"že bol napadnutý. Ak nemáte skúsenosti s obnovou po bezpečnostných "
-"zlyhaniach, vírusoch a zákernom softvéri, mali by ste tento systém od "
-"začiatku znovu nainštalovať alebo sa obrátiť na služby skúseného správcu. "
-"Ďalšie informácie nájdete na:"
-
-#. Type: error
-#. Description
-#: ../libpam-runtime.templates:5001
-msgid ""
-"The bug that allowed this wrong configuration is fixed in the current "
-"version of libpam-runtime, and your configuration has now been corrected. We "
-"apologize that previous versions of libpam-runtime did not detect and "
-"prevent this situation."
-msgstr ""
-"Chyba, ktorá umožnila túto nesprávnu konfiguráciu je opravená v aktuálnej "
-"verzii libpam-runtime a vaša konfigurácia bola teraz opravená. "
-"Ospravedlňujeme sa, že predošlé verzie libpam-runtime nezisťovali a "
-"nezabraňovali tejto situácii."
 
 #. Type: error
 #. Description

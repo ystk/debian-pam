@@ -1,3 +1,228 @@
+pam (1.1.3-7.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix cve-2011-4708: user-configurable .pam_environment allows
+    administrator-level changes without root access (closes: #611136).
+
+ -- Michael Gilbert <mgilbert@debian.org>  Sun, 29 Apr 2012 02:23:26 -0400
+
+pam (1.1.3-7) unstable; urgency=low
+
+  * Updated debconf translations:
+    - Danish, thanks to Joe Dalton <joedalton2@yahoo.dk> (closes: #648382)
+    - French, thanks to Jean-Baka Domelevo Entfellner <domelevo@gmail.com>
+      (closes: #649850)
+    - Dutch, thanks to Jeroen Schot <schot@A-Eskwadraat.nl>
+      (closes: #650755)
+    - Russian, thanks to Yuri Kozlov <yuray@komyakino.ru> (closes: #650867)
+    - Portuguese, thanks to Pedro Ribeiro <p.m42.ribeiro@gmail.com>
+      (closes: #652493)
+    - German, thanks to Sven Joachim <svenjoac@gmx.de> (closes: #653407)
+    - Spanish, thanks to Javier Fernandez-Sanguino Peña <jfs@debian.org>
+      (closes: #654043)
+    - Bulgarian, thanks to Damyan Ivanov <dmn@debian.org> (closes: #656518)
+    - Slovak, thanks to Ivan Masár <helix84@centrum.sk> (closes: #656521)
+    - Japanese, thanks to Kenshi Muto <kmuto@debian.org> (closes: #656834)
+    - Polish, thanks to Michał Kułach <michalkulach@gmail.com>
+      (closes: #657476)
+    - Catalan, thanks to Innocent De Marchi <tangram.peces@gmail.com>
+      (closes: #657489)
+    - Czech, thanks to Miroslav Kure <kurem@upcase.inf.upol.cz>
+      (closes: #657578)
+    - Swedish, thanks to Martin Bagge <brother@bsnet.se> (closes: #651349)
+
+ -- Steve Langasek <vorlon@debian.org>  Sat, 28 Jan 2012 10:57:49 -0800
+
+pam (1.1.3-6) unstable; urgency=low
+
+  * debian/patches-applied/hurd_no_setfsuid: we don't want to check all
+    setre*id() calls; we know that there are situations where some of these
+    may fail but we don't care.  As long as the last setre*id() call in each
+    set succeeds, that's the state we mean to be in.
+  * debian/libpam0g.postinst: according to Kubuntu developers, kdm no longer
+    keeps libpam loaded persistently at runtime, so it's not necessary to
+    force a kdm restart on ABI bump.  Which is good, since restarting kdm
+    now seems to also log users out of running sessions, which we rather
+    want to avoid.  Closes: #632673, LP: #744944.
+  * debian/patches-applied/update-motd: set a sane umask before calling
+    run-parts, and restore the old mask afterwards, so /run/motd gets
+    consistent permissions.  LP: #871943.
+  * debian/patches-applied/update-motd: new module option for pam_motd,
+    'noupdate', which suppresses the call to run-parts /etc/update-motd.d.
+    LP: #805423.
+  * debian/libpam0g.templates, debian/libpam0g.postinst: add a new question,
+    libraries/restart-without-asking, that allows admins to accept the
+    service restarts once for all so that they don't have to repeatedly
+    say "ok".  LP: #745004.
+  * debian/libpam-runtime.templates, debian/local/pam-auth-update: add a
+    new 'title' template, so pam-auth-update doesn't give a blank title
+    when called outside of a maintainer script.  LP: #882794.
+
+ -- Steve Langasek <vorlon@debian.org>  Sun, 06 Nov 2011 19:43:14 -0800
+
+pam (1.1.3-5) unstable; urgency=low
+
+  [ Kees Cook ]
+  * debian/patches-applied/pam_unix_dont_trust_chkpwd_caller.patch: use
+    setresgid() to wipe out saved-gid just in case.
+  * debian/patches-applied/008_modules_pam_limits_chroot:
+    - fix off-by-one when parsing configuration file.
+    - when using chroot, chdir() to root to lose links to old tree.
+  * debian/patches-applied/022_pam_unix_group_time_miscfixes,
+    debian/patches-applied/026_pam_unix_passwd_unknown_user,
+    debian/patches-applied/054_pam_security_abstract_securetty_handling:
+    improve descriptions.
+  * debian/patches-applied/{007_modules_pam_unix,055_pam_unix_nullok_secure}:
+    drop unneeded no-op change to reduce delta from upstream.
+  * debian/patches-applied/hurd_no_setfsuid: check all set*id() calls.
+  * debian/patches-applied/update-motd: correctly clear environment when
+    building motd.
+  * debian/patches-applied/pam_env-fix-overflow.patch: fix stack overflow
+    in environment file parsing (CVE-2011-3148).
+  * debian/patches-applied/pam_env-fix-dos.patch: fix DoS in environment
+    file parsing (CVE-2011-3149).
+
+ -- Steve Langasek <vorlon@debian.org>  Thu, 27 Oct 2011 21:33:57 -0700
+
+pam (1.1.3-4) unstable; urgency=low
+
+  * Make sure shared library links are also installed to the multiarch
+    directory, not just the .a files; otherwise the static libs get found
+    first by the linker.  Thanks to Russ Allbery for catching this.
+    Closes: #642952.
+
+ -- Steve Langasek <vorlon@debian.org>  Sun, 25 Sep 2011 22:33:55 +0000
+
+pam (1.1.3-3) unstable; urgency=low
+
+  * Look for /etc/init.d/postgresql, not /etc/init.d/postgresql-8.{2,3},
+    for service restarts; the latter are obsolete since squeeze.
+    Closes: #631511.
+  * Move debian/libpam0g-dev.install to debian/libpam0g-dev.install.in
+    and substitute the multiarch path at build time, so our .a files go to
+    the multiarch dir instead of to /usr/lib.  Thanks to Riku Voipio for
+    pointing out the bug.
+  * debian/control: adjust the package descriptions, as the current ones
+    use some awkward language that's gone unnoticed for a long time.  Thanks
+    to Martin Eberhard Schauer <Martin.E.Schauer@gmx.de> for pointing this
+    out.  Closes: #633863.
+  * Build-depend on debhelper 8.9.4 and bump debian/compat to 9 for
+    dpkg-buildflags integration, and drop manual setting of -g -O options in
+    CFLAGS now that we can let dh do it for us
+  * Don't set --sbindir when calling configure; upstream takes care of this
+    for us
+
+ -- Steve Langasek <vorlon@debian.org>  Sat, 24 Sep 2011 20:08:56 +0000
+
+pam (1.1.3-2) unstable; urgency=low
+
+  [ Kees Cook ]
+  * debian/patches-applied/027_pam_limits_better_init_allow_explicit_root:
+    - only report about unknown kernel rlimits when "debug" is set
+      (Closes: 625226, LP: #794531).
+
+  [ Steve Langasek ]
+  * Build for multiarch.  Closes: #463420.
+  * debian/patches-applied/027_pam_limits_better_init_allow_explicit_root:
+    don't reset the process niceness for root; since it's root, they can
+    still renice to a lower nice level if they need to and changing the
+    nice level by default is unexpected behavior.  Closes: #594377.
+
+ -- Steve Langasek <vorlon@debian.org>  Tue, 21 Jun 2011 11:41:12 -0700
+
+pam (1.1.3-1) unstable; urgency=low
+
+  * New upstream release.
+    - Fixes CVE-2010-3853, executing namespace.init with an insecure
+      environment set by the caller.  Closes: #608273.
+    - Fixes CVE-2010-3316 CVE-2010-3430 CVE-2010-3431 CVE-2010-3435.
+      Closes: #599832.
+  * Port hurd_no_setfsuid patch to new pam_modutil_{drop,restore}_priv
+    interface; now possibly upstreamable
+  * debian/patches-applied/027_pam_limits_better_init_allow_explicit_root:
+    set a better default RLIMIT_MEMLOCK value for BSD kernels.  Thanks to
+    Petr Salinger for the fix.  Closes: #602902.
+  * bump the minimum version check in maintainer scripts for the restart
+    handling.
+
+ -- Steve Langasek <vorlon@debian.org>  Sat, 04 Jun 2011 03:10:50 -0700
+
+pam (1.1.2-3) unstable; urgency=low
+
+  [ Kees Cook ]
+  * 027_pam_limits_better_init_allow_explicit_root: load rlimit defaults
+    from the kernel (via /proc/1/limits), instead of continuing to hardcode
+    the settings internally. Fall back to internal defaults when the kernel
+    rlimits are not found.  Closes: #620302. (LP: #746655, #391761)
+
+  * Updated debconf translations:
+    - Vietnamese, thanks to Clytie Siddall <clytie@riverland.net.au>
+      (closes: #601197)
+    - Dutch, thanks to Eric Spreen <erispre@gmail.com> (closes: #605592)
+    - Danish, thanks to Joe Dalton <joedalton2@yahoo.dk> (closes: #606739)
+    - Catalan, thanks to Innocent De Marchi <tangram.peces@gmail.com>
+      (closes: #622786)
+
+ -- Steve Langasek <vorlon@debian.org>  Sun, 01 May 2011 01:49:11 -0700
+
+pam (1.1.2-2) unstable; urgency=low
+
+  * debian/patches-applied/hurd_no_setfsuid: handle some new calls to
+    setfsuid in pam_xauth that I overlooked, so that the build works again
+    on non-Linux.  Closes: #613630.
+
+ -- Steve Langasek <vorlon@debian.org>  Wed, 16 Feb 2011 09:27:11 -0800
+
+pam (1.1.2-1) unstable; urgency=low
+
+  * New upstream release.
+    - Add support for NSS groups to pam_group.  Closes: #589019,
+      LP: #297408.
+    - Support cross-building the package.  Thanks to Neil Williams
+      <codehelp@debian.org> for the patch.  Closes: #284854.   
+  * debian/rules: pass getconf LFS_CFLAGS so that we get a 64-bit rlimit
+    interface.  Closes: #579402.
+  * Drop patches conditional_module,_conditional_man and
+    mkhomedir_linking.patch, which are included upstream.
+  * debian/patches/hurd_no_setfsuid: pam_env and pam_mail now also use
+    setfsuid, so patch them to be likewise Hurd-safe.
+  * Update debian/source.lintian-overrides to clean up some spurious
+    warnings.
+  * debian/libpam-modules.postinst: if any 'min=n' options are found in
+    /etc/pam.d/common-password, convert them on upgrade to 'minlen=n' for
+    compatibility with upstream.
+  * debian/NEWS: document the disappearance of 'min=n', in case users have
+    encoded this option elsewhere outside of /etc/pam.d/common-password.
+  * debian/patches/007_modules_pam_unix: drop compatibility handling of
+    'max=' no-op; use of this option will now log an error, as warned three
+    years ago.
+  * Bump Standards-Version to 3.9.1.
+  * Add lintian overrides for a few more spurious warnings.
+  * debian/patches-applied/no_PATH_MAX_on_hurd: define PATH_MAX for
+    compatibility when it's not already set.  Closes: #552043.
+  * debian/local/pam-auth-update: Don't try to pass embedded newlines to
+    debconf; backslash-escape them instead and use CAPB escape.
+  * debian/local/pam-auth-update: sort additional module options before
+    writing them out, so that we don't wind up with a different config file
+    on every invocation.  Thanks to Jim Paris <jim@jtan.com> for the patch.
+    Closes: #594123.
+  * debian/libpam-runtime.{postinst,templates}: since 1.1.2-1 is targeted
+    for post-squeeze, we don't need to support upgrades from 1.0.1-6 to
+    1.0.1-10 anymore.  Drop the debconf error note about having configured
+    your system with a lack of authentication, so that translators don't
+    spend any more time on it.
+  * Updated debconf translations:
+    - Swedish, thanks to Martin Bagge <brother@bsnet.se> (closes: #575875)
+
+ -- Steve Langasek <vorlon@debian.org>  Tue, 15 Feb 2011 23:21:41 -0800
+
+pam (1.1.1-7) UNRELEASED; urgency=low
+
+  * Updated debconf translations:
+    - Italian, thanks to Nicole B. <damn3dg1rl@gmail.com> (closes: #602112)
+
+ -- Steve Langasek <vorlon@debian.org>  Wed, 17 Nov 2010 16:53:46 -0800
+
 pam (1.1.1-6.1) unstable; urgency=low
 
   * Non-maintainer upload.

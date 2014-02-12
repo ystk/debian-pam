@@ -68,6 +68,7 @@ installed_services() {
 	    -e's/\bheartbeat-2\b/heartbeat/g' \
 	    -e's/\bhylafax-server\b/hylafax/g' \
 	    -e's/\bpartimage-server\b/partimaged/g' \
+	    -e's/\bpostgresql-common\b/postgresql/g' \
 	    -e's/\bsasl2-bin\b/saslauthd/g' \
     )
 
@@ -85,7 +86,7 @@ installed_services() {
 if [ "$1" = "configure" ]
 then
     if [ ! -z "$2" ]; then
-	if dpkg --compare-versions "$2" lt 1.1.1-2; then
+	if dpkg --compare-versions "$2" lt 1.1.3-2; then
 	    db_version 2.0
 
 	    echo -n "Checking for services that may need to be restarted..."
@@ -98,30 +99,35 @@ then
 	    check="$check kannel linesrv linesrv-mysql lsh-server"
 	    check="$check muddleftpd netatalk nuauth partimage-server"
 	    check="$check perdition pgpool popa3d"
-	    check="$check postgresql-8.2 postgresql-8.3 proftpd pure-ftpd"
+	    check="$check postgresql-common proftpd pure-ftpd"
 	    check="$check pure-ftpd-ldap pure-ftpd-mysql"
 	    check="$check pure-ftpd-postgresql racoon samba sasl2-bin"
 	    check="$check sfs-server solid-pop3d squid squid3 tac-plus"
 	    check="$check vsftpd wu-ftpd wzdftpd xrdp yardradius yaws"
 
 	    if ! who | awk '{print $2}'|grep -q ':[0-9]'; then
-		check="$check kdm wdm xdm"
+		check="$check wdm xdm"
 	    fi
 
 	    echo "Checking init scripts..."
 	    services=$(installed_services "$check")
 	    if [ -n "$services" ]; then
-		db_reset libpam0g/restart-services
-		db_set libpam0g/restart-services "$services"
-		db_input critical libpam0g/restart-services || true
+		db_input critical libraries/restart-without-asking || true
 		db_go || true
-		db_get libpam0g/restart-services
+		db_get libraries/restart-without-asking
+		if [ "$RET" != true ]; then
+		    db_reset libpam0g/restart-services
+		    db_set libpam0g/restart-services "$services"
+		    db_input critical libpam0g/restart-services || true
+		    db_go || true
+		    db_get libpam0g/restart-services
 
-		if [ "x$RET" != "x" ]
-		then
-		    services=$RET
-		else
-		    services=""
+		    if [ "x$RET" != "x" ]
+		    then
+			services=$RET
+		    else
+			services=""
+		    fi
 		fi
 		echo
 		if [ "$services" != "" ]; then
@@ -170,7 +176,7 @@ then
 
 	    if who | awk '{print $2}' | grep -q ':[0-9]'; then
 		dms=""
-		for service in kdm wdm xdm; do
+		for service in wdm xdm; do
 		    case "$services" in
 			*$service*)	;;
 			*)	dms="$dms $service"
@@ -186,7 +192,7 @@ then
 	    # Shut down the frontend, to make sure none of the
 	    # restarted services keep a connection open to it
 	    db_stop
-	fi # end upgrading and $2 lt 1.1.1-2
+	fi # end upgrading and $2 lt 1.1.3-2
     fi # Upgrading
 fi
 
