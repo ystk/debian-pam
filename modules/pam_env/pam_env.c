@@ -772,13 +772,14 @@ handle_env (pam_handle_t *pamh, int argc, const char **argv)
 
   if(user_readenv && retval == PAM_SUCCESS) {
     char *envpath = NULL;
-    struct passwd *user_entry;
+    struct passwd *user_entry = NULL;
     const char *username;
     struct stat statbuf;
 
     username = _pam_get_item_byname(pamh, "PAM_USER");
 
-    user_entry = pam_modutil_getpwnam (pamh, username);
+    if (username)
+      user_entry = pam_modutil_getpwnam (pamh, username);
     if (!user_entry) {
       pam_syslog(pamh, LOG_ERR, "No such user!?");
     }
@@ -789,7 +790,15 @@ handle_env (pam_handle_t *pamh, int argc, const char **argv)
 	  return PAM_BUF_ERR;
 	}
       if (stat(envpath, &statbuf) == 0) {
-        retval = _parse_config_file(pamh, envpath);
+	PAM_MODUTIL_DEF_PRIVS(privs);
+
+	if (pam_modutil_drop_priv(pamh, &privs, user_entry)) {
+	  retval = PAM_SESSION_ERR;
+	} else {
+	  retval = _parse_config_file(pamh, envpath);
+	  if (pam_modutil_regain_priv(pamh, &privs))
+	    retval = PAM_SESSION_ERR;
+	}
         if (retval == PAM_IGNORE)
           retval = PAM_SUCCESS;
       }
