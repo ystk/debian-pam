@@ -15,13 +15,11 @@ hurd_no_setfsuid
 045_pam_dispatch_jump_is_ignore
 054_pam_security_abstract_securetty_handling
 055_pam_unix_nullok_secure
+cve-2011-4708.patch
 PAM-manpage-section 
-autoconf.patch 
 update-motd
-fix-man-crud
-sys-types-include.patch
 no_PATH_MAX_on_hurd
 lib_security_multiarch_compat
-pam_env-fix-overflow.patch
-pam_env-fix-dos.patch
-cve-2011-4708.patch
+pam-loginuid-in-containers
+cve-2013-7041.patch
+cve-2014-2583.patch
