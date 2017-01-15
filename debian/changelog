@@ -1,3 +1,11 @@
+pam (1.1.8-3.1+deb8u2) jessie; urgency=medium
+
+  * Non-maintainer upload.
+  * debian/patches-applied/pam-loginuid-in-containers: Updated with the version
+    from Ubuntu, this should fix logins in containers (Closes: #726661)
+
+ -- Evgeni Golov <evgeni@debian.org>  Sat, 12 Nov 2016 08:38:19 +0100
+
 pam (1.1.8-3.1+deb8u1) jessie; urgency=medium
 
   * Non-maintainer upload.
